@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-07T03:45:00Z",
+  "last_updated": "2026-07-07T04:49:00Z",
   "entries": [
     {
       "id": "seed-trustpilot-summary-1",
@@ -135,6 +135,24 @@
       "sentiment": "positive",
       "theme": "general/other",
       "url": "https://thenewsmill.com/2026/04/ultrahuman-hyrox-bengaluru-sets-new-record-with-over-8200-participants/"
+    },
+    {
+      "id": "kickstarter-ringpro-campaign-2026-07",
+      "date": "2026-07-02",
+      "source": "Kickstarter",
+      "text": "The Ultrahuman Ring PRO Kickstarter campaign reached 1,227 backers and $473,400 pledged as of its July 2 update, reflecting continued demand despite the shipping delays.",
+      "sentiment": "positive",
+      "theme": "general/other",
+      "url": "https://www.kickstarter.com/projects/ultrahuman/ultrahuman-ring-pro"
+    },
+    {
+      "id": "trustpilot-battery-replacement-fault-2026-07",
+      "date": "2026-07-07",
+      "source": "Trustpilot",
+      "text": "A customer reported their first Ultrahuman ring had a battery fault, and after replacement the second unit failed within just 6 days, alongside complaints about slow 'priority support' response times spanning multiple escalations.",
+      "sentiment": "negative",
+      "theme": "battery / hardware reliability",
+      "url": "https://www.trustpilot.com/review/www.ultrahuman.com"
     }
   ]
 }
