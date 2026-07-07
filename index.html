@@ -6,7 +6,7 @@
 <style>
   :root { color-scheme: light; }
   body { margin: 0; background: #ffffff; color: #0b0b0b; font-family: -apple-system, Helvetica, Arial, sans-serif; }
-  .wrap { padding: 1rem 1.25rem 2rem; max-width: 900px; margin: 0 auto; }
+  .wrap { padding: 1rem 1.25rem 2.5rem; max-width: 1000px; margin: 0 auto; }
   .updated { font-size: 12px; color: #6b6b68; margin: 0 0 1rem; }
   .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
   .kpi { background: #f7f6f2; border-radius: 8px; padding: 1rem; }
@@ -14,49 +14,110 @@
   .kpi .value { font-size: 24px; font-weight: 600; margin: 0; }
   .kpi .value.pos { color: #0f6e56; }
   .kpi .value.neg { color: #a32d2d; }
+  .kpi .value.warn { color: #b5720a; }
   h1 { font-size: 20px; font-weight: 700; margin: 0 0 0.25rem; }
   h2 { font-size: 16px; font-weight: 600; margin: 1.5rem 0 0.5rem; }
-  .chart-box { position: relative; height: 240px; margin-bottom: 1rem; }
+  h3 { font-size: 14px; font-weight: 600; margin: 1.25rem 0 0.4rem; }
+  .chart-box { position: relative; height: 260px; margin-bottom: 1rem; }
+  .chart-box.tall { height: 340px; }
   table.gridjs-table { font-size: 13px; }
   .error { background: #fdecea; color: #a32d2d; padding: 0.75rem 1rem; border-radius: 8px; }
+  .tabs { display: flex; gap: 4px; border-bottom: 2px solid #e5e4de; margin-bottom: 1.25rem; }
+  .tab-btn { background: none; border: none; font-size: 14px; font-weight: 600; padding: 0.6rem 1rem; cursor: pointer; color: #6b6b68; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+  .tab-btn.active { color: #0b0b0b; border-bottom-color: #2a78d6; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .note { font-size: 12px; color: #6b6b68; background: #f7f6f2; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1rem; line-height: 1.5; }
+  .action-list { padding: 0; margin: 0; list-style: none; }
+  .action-item { display: flex; gap: 0.75rem; padding: 0.85rem 0; border-bottom: 1px solid #e5e4de; }
+  .action-item:last-child { border-bottom: none; }
+  .action-badge { flex: 0 0 auto; font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; height: fit-content; }
+  .action-badge.high { background: #fdecea; color: #a32d2d; }
+  .action-badge.medium { background: #fff4e0; color: #b5720a; }
+  .action-badge.low { background: #eaf3ff; color: #2a78d6; }
+  .action-body p { margin: 0.2rem 0 0; font-size: 13px; color: #3a3a38; line-height: 1.5; }
+  .action-body strong { font-size: 14px; }
+  .theme-legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 0.5rem 0 1rem; }
+  .theme-chip { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: #f0efe9; cursor: pointer; border: 1px solid transparent; }
+  .theme-chip.active { border-color: #2a78d6; background: #eaf3ff; color: #2a78d6; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>Ultrahuman Voice of Customer Dashboard</h1>
+  <h1>Ultrahuman Voice of Customer &amp; Complaints Dashboard</h1>
   <p class="updated" id="updated">Loading latest data&hellip;</p>
 
-  <div class="kpis" id="kpis"></div>
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="voc">Voice of Customer</button>
+    <button class="tab-btn" data-tab="complaints">Complaints Analysis</button>
+  </div>
 
-  <h2>Mentions by theme</h2>
-  <div class="chart-box"><canvas id="themeChart" role="img" aria-label="Bar chart of mention counts by theme"></canvas></div>
+  <!-- ================= VOC TAB ================= -->
+  <div class="tab-panel active" id="tab-voc">
+    <div class="kpis" id="kpis"></div>
 
-  <h2>Mentions by source</h2>
-  <div class="chart-box"><canvas id="sourceChart" role="img" aria-label="Bar chart of mention counts by source platform"></canvas></div>
+    <h2>Mentions by theme</h2>
+    <div class="chart-box"><canvas id="themeChart" role="img" aria-label="Bar chart of mention counts by theme"></canvas></div>
 
-  <h2>Recent mentions</h2>
-  <div id="table"></div>
+    <h2>Mentions by source</h2>
+    <div class="chart-box"><canvas id="sourceChart" role="img" aria-label="Bar chart of mention counts by source platform"></canvas></div>
+
+    <h2>Recent mentions</h2>
+    <div id="table"></div>
+  </div>
+
+  <!-- ================= COMPLAINTS TAB ================= -->
+  <div class="tab-panel" id="tab-complaints">
+    <p class="note" id="complaints-coverage"></p>
+
+    <div class="kpis" id="complaints-kpis"></div>
+
+    <h2>Complaint volume by month (most recent first)</h2>
+    <div class="chart-box tall"><canvas id="monthChart" role="img" aria-label="Bar chart of complaint counts by month, most recent first"></canvas></div>
+
+    <h2>Complaints by segment</h2>
+    <div class="chart-box"><canvas id="segmentChart" role="img" aria-label="Bar chart of complaint counts by theme segment"></canvas></div>
+
+    <h2>Resolution status</h2>
+    <div class="chart-box"><canvas id="resolutionChart" role="img" aria-label="Bar chart of complaint counts by resolution status"></canvas></div>
+
+    <h2>Recommended actions</h2>
+    <ul class="action-list" id="action-items"></ul>
+
+    <h2>All complaints</h2>
+    <div class="theme-legend" id="theme-filter"></div>
+    <div id="complaints-table"></div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/gridjs@5.0.2/dist/gridjs.umd.js" integrity="sha384-/XXDzxe4FsGiAe50i/u9pY/Vy/uX654MHB1xoc1BJNnH1WXHhqHga9g3q5tF4gj7" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridjs@5.0.2/dist/theme/mermaid.min.css" integrity="sha384-jZvDSsmGB9oGGT/4l9bHXGoAv1OxvG/cFmSo0dZaSqmBgvQTKDBFAMftlXTmMbNW" crossorigin="anonymous">
 <script>
-async function loadDashboard() {
-  const wrap = document.querySelector('.wrap');
+// ---------- Tabs ----------
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ---------- VOC dashboard (existing) ----------
+async function loadVoc() {
   try {
-    // Cache-bust so viewers always get the latest data.json, not a stale cached copy.
     const res = await fetch('data.json?t=' + Date.now(), { cache: 'no-store' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
-    render(data);
+    renderVoc(data);
   } catch (err) {
     document.getElementById('updated').outerHTML =
       '<p class="error">Could not load data.json: ' + err.message + '</p>';
   }
 }
 
-function render(data) {
+function renderVoc(data) {
   const entries = data.entries || [];
   const entriesSorted = [...entries].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
@@ -115,8 +176,141 @@ function render(data) {
   }).render(document.getElementById('table'));
 }
 
-loadDashboard();
-setInterval(loadDashboard, 5 * 60 * 1000);
+// ---------- Complaints dashboard (new) ----------
+let complaintsGrid = null;
+let activeThemeFilter = null;
+
+async function loadComplaints() {
+  try {
+    const res = await fetch('complaints.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    renderComplaints(data);
+  } catch (err) {
+    document.getElementById('complaints-coverage').outerHTML =
+      '<p class="error">Could not load complaints.json: ' + err.message + '</p>';
+  }
+}
+
+const THEME_COLORS = {
+  'Battery / Hardware Reliability': '#a32d2d',
+  'Connectivity / Bluetooth Sync': '#c2571b',
+  'Customer Service / Support Response': '#b5720a',
+  'Warranty / Refund Policy': '#8a4baf',
+  'Sensor / Tracking Accuracy': '#2a78d6',
+  'Shipping / Delivery Delays': '#1b7fa8',
+  'Pricing / Subscription': '#5a6b7a',
+  'Data Privacy / Security': '#8a1b3a',
+  'Product Praise / Positive Experience': '#1baf7a',
+  'Other': '#9a9890'
+};
+
+function renderComplaints(data) {
+  window.__complaintsData = data;
+  document.getElementById('complaints-coverage').textContent = data.coverage_note || '';
+
+  const total = data.total_reviews_sampled;
+  const complaints = data.total_complaints;
+  const inProgress = (data.resolution_distribution || {}).in_progress || 0;
+  const refused = (data.resolution_distribution || {}).unresolved_refused || 0;
+  const resolved = ((data.resolution_distribution || {}).resolved_replacement || 0) + ((data.resolution_distribution || {}).resolved_refund || 0);
+
+  document.getElementById('complaints-kpis').innerHTML = `
+    <div class="kpi"><p class="label">Reviews sampled</p><p class="value">${total}</p></div>
+    <div class="kpi"><p class="label">Total complaints</p><p class="value neg">${complaints}</p></div>
+    <div class="kpi"><p class="label">Complaint rate</p><p class="value neg">${data.complaint_rate_pct}%</p></div>
+    <div class="kpi"><p class="label">Company reply rate</p><p class="value pos">${data.company_reply_rate_pct}%</p></div>
+    <div class="kpi"><p class="label">Stuck "in progress"</p><p class="value warn">${inProgress}</p></div>
+    <div class="kpi"><p class="label">Publicly resolved</p><p class="value pos">${resolved}</p></div>
+  `;
+
+  // Month chart - most recent first (data already sorted desc by month_distribution insertion order)
+  const monthEntries = Object.entries(data.month_distribution || {});
+  new Chart(document.getElementById('monthChart'), {
+    type: 'bar',
+    data: { labels: monthEntries.map(e => e[0]), datasets: [{ data: monthEntries.map(e => e[1]), backgroundColor: '#a32d2d', borderRadius: 4, maxBarThickness: 26 }] },
+    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+      scales: { x: { ticks: { color: '#6b6b68', precision: 0 }, grid: { color: '#e5e4de' } }, y: { ticks: { color: '#6b6b68' }, grid: { display: false } } } }
+  });
+
+  // Segment chart
+  const themeEntries = Object.entries(data.theme_distribution || {}).filter(e => e[0] !== 'Product Praise / Positive Experience');
+  new Chart(document.getElementById('segmentChart'), {
+    type: 'bar',
+    data: { labels: themeEntries.map(e => e[0]), datasets: [{ data: themeEntries.map(e => e[1]), backgroundColor: themeEntries.map(e => THEME_COLORS[e[0]] || '#9a9890'), borderRadius: 4, maxBarThickness: 28 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+      scales: { x: { ticks: { color: '#6b6b68', autoSkip: false, maxRotation: 30, minRotation: 30, font: {size: 10} }, grid: { display: false } }, y: { ticks: { color: '#6b6b68', precision: 0 }, grid: { color: '#e5e4de' } } } }
+  });
+
+  // Resolution chart
+  const resLabels = { in_progress: 'In progress (generic reply)', unresolved_refused: 'Refused / unresolved', resolved_replacement: 'Resolved: replacement', resolved_refund: 'Resolved: refund' };
+  const resEntries = Object.entries(data.resolution_distribution || {});
+  new Chart(document.getElementById('resolutionChart'), {
+    type: 'bar',
+    data: { labels: resEntries.map(e => resLabels[e[0]] || e[0]), datasets: [{ data: resEntries.map(e => e[1]), backgroundColor: ['#b5720a','#a32d2d','#1baf7a','#1baf7a'], borderRadius: 4, maxBarThickness: 28 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+      scales: { x: { ticks: { color: '#6b6b68' }, grid: { display: false } }, y: { ticks: { color: '#6b6b68', precision: 0 }, grid: { color: '#e5e4de' } } } }
+  });
+
+  renderActionItems(data);
+  renderThemeFilter(data);
+  renderComplaintsTable(data, null);
+}
+
+function renderActionItems(data) {
+  const td = data.theme_distribution || {};
+  const total = data.total_complaints;
+  const pct = n => total ? Math.round((n/total)*100) : 0;
+  const items = [
+    { sev: 'high', title: 'Investigate battery/hardware root cause', body: `${td['Battery / Hardware Reliability']||0} of ${total} complaints (${pct(td['Battery / Hardware Reliability']||0)}%) describe battery drain, charging failure, or repeated hardware breakdowns — often across 3-4 replacement units for the same customer. This is the single largest complaint driver by a wide margin and points to a component or QA issue rather than isolated defects.` },
+    { sev: 'high', title: 'Close the loop on "in progress" complaints', body: `${data.resolution_distribution?.in_progress||0} complaints (${pct(data.resolution_distribution?.in_progress||0)}%) end with a generic "email ultrahuman-care@ with your ticket ID" reply and no visible resolution. Customers repeatedly describe AI-bot loops and 48-72 hour promises that reset. Consider publicly following up on Trustpilot once a case actually closes — currently only ${(data.resolution_distribution?.resolved_replacement||0)+(data.resolution_distribution?.resolved_refund||0)} complaints show a confirmed resolution.` },
+    { sev: 'high', title: 'Fix Bluetooth/connectivity reliability', body: `${td['Connectivity / Bluetooth Sync']||0} complaints (${pct(td['Connectivity / Bluetooth Sync']||0)}%) describe disconnection, failed pairing, or "battery drain and reset" as the only offered fix. A firmware/Bluetooth-stack review could meaningfully cut both this segment and part of the battery segment, since the two are frequently reported together.` },
+    { sev: 'medium', title: 'Revisit warranty & refund policy communication', body: `${td['Warranty / Refund Policy']||0} complaints center on warranty refusals (used/third-party purchases), being offered refurbished units instead of refunds, or slow refund processing. Clearer at-purchase warranty terms and a faster refund SLA would reduce a recurring source of the most negative (1-star, public credit-card-dispute-threatening) reviews.` },
+    { sev: 'medium', title: 'Reduce reliance on AI/chatbot as first-line support', body: `Multiple complaints explicitly call out the AI chatbot for looping the same troubleshooting steps or failing to escalate. Customers who reach a human (including via Instagram DMs) report much better outcomes. Consider a faster, clearer path to human support for repeat-ticket customers.` },
+    { sev: 'low', title: 'Monitor sensor/data-accuracy complaints for a data-integrity narrative', body: `${td['Sensor / Tracking Accuracy']||0} complaints allege the app "invents" sleep/health data during disconnected periods. Even at low volume, this theme is reputationally sensitive (accuracy is the core value proposition) and worth a dedicated QA pass on offline-period data handling.` }
+  ];
+  document.getElementById('action-items').innerHTML = items.map(it => `
+    <li class="action-item">
+      <span class="action-badge ${it.sev}">${it.sev}</span>
+      <div class="action-body"><strong>${it.title}</strong><p>${it.body}</p></div>
+    </li>
+  `).join('');
+}
+
+function renderThemeFilter(data) {
+  const themes = Object.keys(data.theme_distribution || {});
+  const el = document.getElementById('theme-filter');
+  const chip = (label) => `<button class="theme-chip${activeThemeFilter===label?' active':''}" data-theme="${label}">${label} (${data.theme_distribution[label]})</button>`;
+  el.innerHTML = `<button class="theme-chip${activeThemeFilter===null?' active':''}" data-theme="">All (${data.total_reviews_sampled})</button>` + themes.map(chip).join('');
+  el.querySelectorAll('.theme-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeThemeFilter = btn.dataset.theme || null;
+      renderThemeFilter(data);
+      renderComplaintsTable(data, activeThemeFilter);
+    });
+  });
+}
+
+function renderComplaintsTable(data, themeFilter) {
+  const entries = (data.entries || []).filter(e => !themeFilter || e.theme === themeFilter);
+  const rows = entries.map(e => [
+    e.date || '', e.rating, e.theme, (e.resolution||'').replace('_',' '), e.title || '', e.company_replied ? 'Yes' : 'No', e.url
+  ]);
+  const target = document.getElementById('complaints-table');
+  target.innerHTML = '';
+  new gridjs.Grid({
+    columns: ['Date', 'Rating', 'Segment', 'Resolution', 'Summary', 'Replied', 'Link'],
+    data: rows,
+    sort: true,
+    search: true,
+    pagination: { limit: 10 },
+    style: { table: { 'font-size': '13px' } }
+  }).render(target);
+}
+
+loadVoc();
+loadComplaints();
+setInterval(() => { loadVoc(); loadComplaints(); }, 5 * 60 * 1000);
 </script>
 </body>
 </html>
