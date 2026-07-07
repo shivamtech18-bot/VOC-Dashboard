@@ -1,0 +1,104 @@
+{
+  "last_updated": "2026-07-07T18:30:00Z",
+  "entries": [
+    {
+      "id": "seed-trustpilot-summary-1",
+      "date": "2026-07-06",
+      "source": "Trustpilot",
+      "text": "App is awesome with lots of data, ring is lightweight and comfortable, customer service described as helpful and seamless.",
+      "sentiment": "positive",
+      "theme": "app UX / customer service",
+      "url": "https://www.trustpilot.com/review/www.ultrahuman.com"
+    },
+    {
+      "id": "seed-trustpilot-summary-2",
+      "date": "2026-07-06",
+      "source": "Trustpilot",
+      "text": "Rings don't last long, battery issues starting around 6 months, some users report the AI feature makes up fake data.",
+      "sentiment": "negative",
+      "theme": "battery / hardware reliability",
+      "url": "https://www.trustpilot.com/review/www.ultrahuman.com"
+    },
+    {
+      "id": "seed-reddit-summary-1",
+      "date": "2026-07-06",
+      "source": "Reddit",
+      "text": "Across 101 mentions, users praise sleep tracking and app quality but complain about durability and accuracy.",
+      "sentiment": "mixed",
+      "theme": "sleep tracking accuracy",
+      "url": "https://reddb.ai/product/ultrahuman-ring-air"
+    },
+    {
+      "id": "seed-googleplay-summary-1",
+      "date": "2026-07-06",
+      "source": "Google Play",
+      "text": "Would not recommend, walking sensor is off, cannot detect cycling or driving correctly, wildly off from Google Fit.",
+      "sentiment": "negative",
+      "theme": "sensor accuracy",
+      "url": "https://play.google.com/store/apps/details?id=com.ultrahuman.android"
+    },
+    {
+      "id": "seed-googleplay-summary-2",
+      "date": "2026-07-06",
+      "source": "Google Play",
+      "text": "Love my Ultrahuman ring air, gives awesome health and fitness insight, customer service is excellent.",
+      "sentiment": "positive",
+      "theme": "insights / customer service",
+      "url": "https://play.google.com/store/apps/details?id=com.ultrahuman.android"
+    },
+    {
+      "id": "seed-blog-littlebigreddot-1",
+      "date": "2026-07-06",
+      "source": "Blog",
+      "text": "One year review warning this is not a good product - long-term durability complaint.",
+      "sentiment": "negative",
+      "theme": "battery / hardware reliability",
+      "url": "https://littlebigreddot.com/my-one-year-review-of-the-ultrahuman-ring-air-warning-this-is-not-a-good-product/"
+    },
+    {
+      "id": "engadget-ringpro-review-2026-05",
+      "date": "2026-05-14",
+      "source": "News/press (Engadget)",
+      "text": "Engadget rated the Ring Pro 8.9/10, praising better-looking titanium hardware, a feature-rich charging case (firmware-update recovery, 45-day case battery), and a data-rich app; main knocks were higher price than rivals and no major leap over the Ring Air.",
+      "sentiment": "positive",
+      "theme": "general/other",
+      "url": "https://www.engadget.com/2172740/ultrahuman-ring-pro-review/"
+    },
+    {
+      "id": "techadvisor-ringpro-review-2026-06",
+      "date": "2026-06-25",
+      "source": "News/press (Tech Advisor)",
+      "text": "Tech Advisor's Ring Pro review (Editors' Choice) praised solid tracking, a slick subscription-free app, and up to 15-day battery life, but flagged the $479/£429 price as expensive, the design as chunky, and noted software features are largely unchanged from the Ring Air.",
+      "sentiment": "mixed",
+      "theme": "pricing / subscription",
+      "url": "https://www.techadvisor.com/article/3170046/ultrahuman-ring-pro-review.html"
+    },
+    {
+      "id": "bwdisrupt-seriesc-funding-2026-03",
+      "date": "2026-03-20",
+      "source": "News/press (BW Disrupt)",
+      "text": "Ultrahuman raised roughly Rs 400 crore (~$48M) in a Series C round to fund US re-entry with the redesigned Ring Pro, geographic expansion, and new wrist-based/home health products; total equity raised now exceeds $60M.",
+      "sentiment": "positive",
+      "theme": "general/other",
+      "url": "https://www.bwdisrupt.com/article/ultrahuman-raises-rs-400-cr-series-c-to-expand-global-wearables-business-598408"
+    },
+    {
+      "id": "gadgeteer-us-reentry-2026-03",
+      "date": "2026-03-02",
+      "source": "News/press (The Gadgeteer)",
+      "text": "Coverage of Ultrahuman's smart ring returning to the US market after the Ring Air was previously blocked over an Oura patent dispute, with the redesigned Ring Pro clearing the way for re-entry.",
+      "sentiment": "neutral",
+      "theme": "general/other",
+      "url": "https://the-gadgeteer.com/2026/03/02/america-banned-this-smart-ring-it-just-came-back/"
+    },
+    {
+      "id": "appstore-pricing-subscription-2026-07",
+      "date": "2026-07-07",
+      "source": "App Store / Google Play",
+      "text": "Multiple app store reviews complain about a glut of ads pushing upgrades to the paid 'Ultrahuman X' tier priced around $15/month, unreliable background syncing, and inability to adjust blood glucose target zones.",
+      "sentiment": "negative",
+      "theme": "pricing / subscription",
+      "url": "https://apps.apple.com/us/app/ultrahuman/id1491286709"
+    }
+  ]
+}

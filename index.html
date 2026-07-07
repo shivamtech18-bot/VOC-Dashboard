@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ultrahuman VOC Dashboard</title>
+<style>
+  :root { color-scheme: light; }
+  body { margin: 0; background: #ffffff; color: #0b0b0b; font-family: -apple-system, Helvetica, Arial, sans-serif; }
+  .wrap { padding: 1rem 1.25rem 2rem; max-width: 900px; margin: 0 auto; }
+  .updated { font-size: 12px; color: #6b6b68; margin: 0 0 1rem; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
+  .kpi { background: #f7f6f2; border-radius: 8px; padding: 1rem; }
+  .kpi .label { font-size: 13px; color: #6b6b68; margin: 0 0 4px; }
+  .kpi .value { font-size: 24px; font-weight: 600; margin: 0; }
+  .kpi .value.pos { color: #0f6e56; }
+  .kpi .value.neg { color: #a32d2d; }
+  h1 { font-size: 20px; font-weight: 700; margin: 0 0 0.25rem; }
+  h2 { font-size: 16px; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+  .chart-box { position: relative; height: 240px; margin-bottom: 1rem; }
+  table.gridjs-table { font-size: 13px; }
+  .error { background: #fdecea; color: #a32d2d; padding: 0.75rem 1rem; border-radius: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Ultrahuman Voice of Customer Dashboard</h1>
+  <p class="updated" id="updated">Loading latest data&hellip;</p>
+
+  <div class="kpis" id="kpis"></div>
+
+  <h2>Mentions by theme</h2>
+  <div class="chart-box"><canvas id="themeChart" role="img" aria-label="Bar chart of mention counts by theme"></canvas></div>
+
+  <h2>Mentions by source</h2>
+  <div class="chart-box"><canvas id="sourceChart" role="img" aria-label="Bar chart of mention counts by source platform"></canvas></div>
+
+  <h2>Recent mentions</h2>
+  <div id="table"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gridjs@5.0.2/dist/gridjs.umd.js" integrity="sha384-/XXDzxe4FsGiAe50i/u9pY/Vy/uX654MHB1xoc1BJNnH1WXHhqHga9g3q5tF4gj7" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridjs@5.0.2/dist/theme/mermaid.min.css" integrity="sha384-jZvDSsmGB9oGGT/4l9bHXGoAv1OxvG/cFmSo0dZaSqmBgvQTKDBFAMftlXTmMbNW" crossorigin="anonymous">
+<script>
+async function loadDashboard() {
+  const wrap = document.querySelector('.wrap');
+  try {
+    // Cache-bust so viewers always get the latest data.json, not a stale cached copy.
+    const res = await fetch('data.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    render(data);
+  } catch (err) {
+    document.getElementById('updated').outerHTML =
+      '<p class="error">Could not load data.json: ' + err.message + '</p>';
+  }
+}
+
+function render(data) {
+  const entries = data.entries || [];
+  const entriesSorted = [...entries].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+  const count = (arr, key) => {
+    const m = {};
+    arr.forEach(e => { const k = e[key] || 'unknown'; m[k] = (m[k] || 0) + 1; });
+    return m;
+  };
+
+  const sentimentCounts = count(entries, 'sentiment');
+  const themeCounts = count(entries, 'theme');
+  const sourceCounts = count(entries, 'source');
+
+  const total = entries.length;
+  const pos = sentimentCounts.positive || 0;
+  const neg = sentimentCounts.negative || 0;
+  const mixed = (sentimentCounts.mixed || 0) + (sentimentCounts.neutral || 0);
+  const pct = n => total ? Math.round((n / total) * 1000) / 10 : 0;
+
+  document.getElementById('updated').textContent =
+    'Last updated: ' + (data.last_updated || 'unknown') + ' · auto-refreshes every 5 min in your browser';
+
+  document.getElementById('kpis').innerHTML = `
+    <div class="kpi"><p class="label">Total mentions logged</p><p class="value">${total}</p></div>
+    <div class="kpi"><p class="label">Positive</p><p class="value pos">${pct(pos)}%</p></div>
+    <div class="kpi"><p class="label">Negative</p><p class="value neg">${pct(neg)}%</p></div>
+    <div class="kpi"><p class="label">Mixed / neutral</p><p class="value">${pct(mixed)}%</p></div>
+  `;
+
+  const themeLabels = Object.keys(themeCounts);
+  const themeValues = themeLabels.map(k => themeCounts[k]);
+  const sourceLabels = Object.keys(sourceCounts);
+  const sourceValues = sourceLabels.map(k => sourceCounts[k]);
+
+  new Chart(document.getElementById('themeChart'), {
+    type: 'bar',
+    data: { labels: themeLabels, datasets: [{ data: themeValues, backgroundColor: '#2a78d6', borderRadius: 4, maxBarThickness: 28 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+      scales: { x: { ticks: { color: '#6b6b68' }, grid: { display: false } }, y: { ticks: { color: '#6b6b68', precision: 0 }, grid: { color: '#e5e4de' } } } }
+  });
+  new Chart(document.getElementById('sourceChart'), {
+    type: 'bar',
+    data: { labels: sourceLabels, datasets: [{ data: sourceValues, backgroundColor: '#1baf7a', borderRadius: 4, maxBarThickness: 28 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+      scales: { x: { ticks: { color: '#6b6b68' }, grid: { display: false } }, y: { ticks: { color: '#6b6b68', precision: 0 }, grid: { color: '#e5e4de' } } } }
+  });
+
+  const tableRows = entriesSorted.map(e => [e.date || '', e.source || '', e.sentiment || '', e.theme || '', e.text || '', e.url || '']);
+  new gridjs.Grid({
+    columns: ['Date', 'Source', 'Sentiment', 'Theme', 'Summary', 'Link'],
+    data: tableRows,
+    sort: true,
+    search: true,
+    pagination: { limit: 8 },
+    style: { table: { 'font-size': '13px' } }
+  }).render(document.getElementById('table'));
+}
+
+loadDashboard();
+setInterval(loadDashboard, 5 * 60 * 1000);
+</script>
+</body>
+</html>
