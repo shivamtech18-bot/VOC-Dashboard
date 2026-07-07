@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-07T18:30:00Z",
+  "last_updated": "2026-07-07T03:45:00Z",
   "entries": [
     {
       "id": "seed-trustpilot-summary-1",
@@ -99,6 +99,42 @@
       "sentiment": "negative",
       "theme": "pricing / subscription",
       "url": "https://apps.apple.com/us/app/ultrahuman/id1491286709"
+    },
+    {
+      "id": "tomsguide-ringpro-subscription-free-2026-07",
+      "date": "2026-07-07",
+      "source": "News/press (Tom's Guide)",
+      "text": "Tom's Guide reported that the subscription-free Ultrahuman Ring Pro is officially launching in the US, framing it as a direct pricing/business-model challenge to Oura.",
+      "sentiment": "positive",
+      "theme": "pricing / subscription",
+      "url": "https://www.tomsguide.com/wellness/smart-rings/bad-news-for-oura-the-subscription-free-ultrahuman-ring-pro-is-officially-coming-to-the-u-s"
+    },
+    {
+      "id": "barchart-ringair-review-2026-07",
+      "date": "2026-07-07",
+      "source": "News/press (Barchart)",
+      "text": "A July 2026 review piece described the Ring AIR as Ultrahuman's most consistent seller, crediting its detailed sleep, recovery, and heart-rate tracking plus the lack of a monthly subscription for its staying power against rivals.",
+      "sentiment": "positive",
+      "theme": "sleep tracking accuracy",
+      "url": "https://www.barchart.com/story/news/3087921/ultrahuman-ring-air-review-july-2026-how-the-subscriptionfree-smart-ring-is-winning-over-sleep-and-recovery-trackers"
+    },
+    {
+      "id": "gadgetsandwearables-ringpro-delay-2026-07",
+      "date": "2026-07-03",
+      "source": "News/press (Gadgets & Wearables)",
+      "text": "Ultrahuman told Ring Pro Kickstarter backers and store customers that shipments are delayed again, now expected to begin August 10, citing extra quality-control checks during production scale-up. This is the second slip from the original June window, and backers voiced visible frustration on Reddit over the repeated delays.",
+      "sentiment": "negative",
+      "theme": "general/other",
+      "url": "https://gadgetsandwearables.com/2026/07/03/ultrahuman-ring-pro-shipping/"
+    },
+    {
+      "id": "newsmill-hyrox-bengaluru-2026-04",
+      "date": "2026-04-13",
+      "source": "News/press (The News Mill)",
+      "text": "Ultrahuman HYROX Bengaluru, India's first two-day HYROX event, drew a record 8,200+ participants and 12,000+ spectators, up sharply from prior India editions, with Olympic medallist P.V. Sindhu among the competitors.",
+      "sentiment": "positive",
+      "theme": "general/other",
+      "url": "https://thenewsmill.com/2026/04/ultrahuman-hyrox-bengaluru-sets-new-record-with-over-8200-participants/"
     }
   ]
 }
