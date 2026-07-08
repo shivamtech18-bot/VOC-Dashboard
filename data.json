@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-07T12:33:45Z",
+  "last_updated": "2026-07-08T02:45:09Z",
   "entries": [
     {
       "id": "seed-trustpilot-summary-1",
@@ -207,6 +207,87 @@
       "sentiment": "negative",
       "theme": "customer service",
       "url": "https://justuseapp.com/en/app/1491286709/ultrahuman-workout-sleep/reviews"
+    },
+    {
+      "id": "petematheson-ringpro-review-2026-05",
+      "date": "2026-05-05",
+      "source": "Blog (Pete Matheson)",
+      "text": "A May 2026 hands-on review called the $479 Ring Pro's 15-day battery life and 45-day-capacity Pro Charging Case a genuine leap over rivals, also highlighting 250-day on-device storage, a dual-core ML chip, and the new subscription-free Jade AI platform rolling out to all Ultrahuman ring owners.",
+      "sentiment": "positive",
+      "theme": "battery / hardware reliability",
+      "url": "https://www.petematheson.com/ultrahuman-ring-pro-review-focus-keyword-ultrahuman-ring-pro/"
+    },
+    {
+      "id": "runtothefinish-ringair-review-2025-09",
+      "date": "2025-09-14",
+      "source": "Blog (Run To The Finish)",
+      "text": "A Run To The Finish review scored the Ring AIR 85%, praising its lightweight comfort, accurate sleep/HR data versus a GPS watch, and no-subscription model, but flagged a short 4-6 day battery life, ~180-minute charge time, and scratches/discomfort during strength training and sleep.",
+      "sentiment": "mixed",
+      "theme": "battery / hardware reliability",
+      "url": "https://runtothefinish.com/ultrahuman-ring-air-review/"
+    },
+    {
+      "id": "believeintherun-ringair-usercomment-2025-11",
+      "date": "2025-11-25",
+      "source": "Blog comment (Believe in the Run)",
+      "text": "A reader comment on Believe in the Run's Ring Air review said the app's onboarding skipped basic profile/health questions and instead led straight into upsell pop-ups for paid upgrades, prompting the $349 Costco buyer to return the ring the same day; a separate comment on the same page reported the ring's charge dropping to only ~8 hours within 1-2 weeks of use.",
+      "sentiment": "negative",
+      "theme": "app UX",
+      "url": "https://believeintherun.com/gear-reviews/ultrahuman-ring-air-review/"
+    },
+    {
+      "id": "androidcentral-ringair-review-2024",
+      "date": "2024-03-29",
+      "source": "News/press (Android Central)",
+      "text": "Android Central's review called the Ring Air an excellent sleep-tracking companion that's comfortably light once properly fitted, but knocked the app for needing work, unpolished beta fitness features, and a fairly high price.",
+      "sentiment": "mixed",
+      "theme": "sleep tracking accuracy",
+      "url": "https://www.androidcentral.com/wearables/ultrahuman-ring-air-review"
+    },
+    {
+      "id": "hellocode-ringair-review-2024",
+      "date": "2024-07-31",
+      "source": "Blog (Hello Code)",
+      "text": "A detailed switcher review from a longtime Oura user found the Ring Air's sleep tracking clearly less accurate than Oura's (initially misclassifying time spent awake as asleep, missing awakenings, and logging phantom overnight steps), plus intrusive upgrade ads and confusing notification channels; the reviewer requested a refund. A later update noted Ultrahuman fixed the awake-as-asleep bug.",
+      "sentiment": "negative",
+      "theme": "sleep tracking accuracy",
+      "url": "https://hellocode.co/blog/post/ultrahuman-ring-air-review/"
+    },
+    {
+      "id": "tomsguide-ringpro-nonus-launch-2026-02",
+      "date": "2026-02-27",
+      "source": "News/press (Tom's Guide)",
+      "text": "Tom's Guide covered the newly announced Ultrahuman Ring Pro ($479, shipping March) as a flagship Oura Ring 4 competitor, but noted it would not be available in the US at launch, disappointing the US-based reviewer.",
+      "sentiment": "mixed",
+      "theme": "general/other",
+      "url": "https://www.tomsguide.com/wellness/smart-rings/the-ultrahuman-ring-pro-is-a-flagship-oura-ring-4-competitor-but-not-everyone-will-be-able-to-buy-it"
+    },
+    {
+      "id": "wareable-ringpro-uscustoms-2026-03",
+      "date": "2026-03-24",
+      "source": "News/press (Wareable)",
+      "text": "Wareable reported Ultrahuman's Ring Pro cleared US Customs and Border Protection by redesigning to a unibody form that sidesteps Oura's asserted patent, enabling a May 15 US relaunch with early-bird pricing from $349; CEO Mohit Kumar discussed engineering around the patent dispute and future plans like lactate-based biomarkers.",
+      "sentiment": "positive",
+      "theme": "general/other",
+      "url": "https://www.wareable.com/wearable-tech/ultrahuman-ring-pro-approved-for-us-customs-mohit-kumar-exclusive"
+    },
+    {
+      "id": "thingtesting-reviews-2026-07",
+      "date": "2026-07-08",
+      "source": "Thingtesting (review aggregator)",
+      "text": "Ultrahuman Healthcare holds a 4.8/5 rating across 5 Thingtesting reviews; most reviewers praise comfort, cycle tracking, and the lack of subscription, but one reviewer said sleep tracking 'is really not great at all,' the ring scratches easily, and Ultrahuman keeps adding more paid add-ons for accessories.",
+      "sentiment": "mixed",
+      "theme": "sleep tracking accuracy",
+      "url": "https://thingtesting.com/brands/ultrahuman-healthcare/reviews"
+    },
+    {
+      "id": "techtimes-ringpro-oura5-comparison-2026-06-20",
+      "date": "2026-06-20",
+      "source": "News/press (Tech Times)",
+      "text": "Tech Times covered the Ring Pro's worldwide shipping start ($479, no subscription) alongside the newly launched Oura Ring 5, calculating the Ring Pro's 2-year total cost of ownership as roughly $60 lower than Oura's despite a higher sticker price and 15-day vs 6-9 day battery life, while noting Oura's Ring 5 offers phone-GPS live activity tracking that the Ring Pro lacks.",
+      "sentiment": "mixed",
+      "theme": "pricing / subscription",
+      "url": "https://www.techtimes.com/articles/318765/20260620/ultrahuman-ring-pro-ships-today-subscription-free-ring-targets-oura-15-day-battery.htm"
     }
   ]
 }
